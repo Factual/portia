@@ -1,7 +1,7 @@
 ASTool.SpiderIndexController = Em.ObjectController.extend(ASTool.BaseControllerMixin,
 	ASTool.DocumentViewDataSource, ASTool.DocumentViewListener, {
 	
-	needs: ['application', 'project_index'],
+	needs: ['application', 'navigation', 'project_index'],
 
 	navigationLabelBinding: 'content.name',
 
@@ -127,6 +127,18 @@ ASTool.SpiderIndexController = Em.ObjectController.extend(ASTool.BaseControllerM
 			var itemDefinition = this.get('itemDefinitions').findBy('name', template.get('scrapes'));
 			return ASTool.ExtractedItem.create({ extracted: item, definition: itemDefinition });
 		}.bind(this));
+    if (extractedItems[0]) {
+      var templateUrl = this.get('templates')[0].url;
+      var extractUrl = extractedItems[0].extracted.url;
+      if (templateUrl === extractUrl) {
+        var factualData = {};
+        var routes = this.get('controllers.navigation.previousRoutes');
+        factualData.projectId = routes[1].label;
+        factualData.url = extractUrl;
+        factualData.fields = extractedItems[0].extracted;
+		    this.get('slyd').factualExtracted(factualData);
+      }
+    }
 		return extractedItems;
 	}.property('loadedPageFp'),
 

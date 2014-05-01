@@ -7,8 +7,8 @@ ASTool.MappedFieldData = Em.Object.extend({
 
 ASTool.TemplateIndexController = Em.ObjectController.extend(ASTool.BaseControllerMixin,
 	ASTool.DocumentViewDataSource, ASTool.DocumentViewListener, {
-	
-	needs: ['application', 'items', 'spider_index'],
+
+	needs: ['application', 'items', 'navigation', 'project_index', 'spider_index'],
 
 	navigationLabelBinding: 'content.name',
 
@@ -104,11 +104,52 @@ ASTool.TemplateIndexController = Em.ObjectController.extend(ASTool.BaseControlle
 	},
 
 	saveAnnotations: function() {
+    this.sendFactualData();
 		this.get('annotationsStore').saveAll(this.get('annotations'));
 		if (this.get('content')) {
 			this.set('content.annotated_body', this.get('documentView').getAnnotatedDocument());
 		}
 	},
+
+  sendFactualData: function () {
+    var factualData = {
+      fields: {}
+    }
+    var routes = this.get('controllers.navigation.previousRoutes');
+    factualData.projectId = routes[1].label;
+    factualData.spiderId = routes[2].label;
+    if (factualData.projectId && factualData.spiderId) {
+      this.get('annotations').forEach(function(annotation) {
+        var pageData = {}
+        var field = null
+        var annotations = annotation.get('annotations')
+        for (var key in annotations) {
+          pageData.dataSource = key;
+          field = annotations[key];
+        }
+        var extractors = this.getAppliedExtractors(field);
+        if (extractors.length > 0) {
+          var extractorHash = {}
+          extractors.forEach(function (extractor) {
+            if (extractor.regular_expression) {
+              if (!extractorHash.regexes) extractorHash.regexes = [];
+              extractorHash.regexes.push(extractor.regular_expression);
+            } else if (extractor.type_extractor) {
+              if (!extractorHash.type) extractorHash.type = [];
+              extractorHash.type.push(extractor.type_extractor);
+            }
+          });
+          pageData.extractors = extractorHash;
+        }
+        pageData.generated = annotation.get('generated');
+        // pageData.element = annotation.get('element');
+        pageData.path = annotation.get('path');
+        factualData.fields[field] = pageData;
+      }.bind(this));
+      factualData.annotatedPage = this.get('documentView').getAnnotatedDocument();
+		  this.get('slyd').factualTemplate(factualData);
+    }
+  },
 
 	saveExtractors: function() {
 		// Cleanup extractor objects.
@@ -313,7 +354,6 @@ ASTool.TemplateIndexController = Em.ObjectController.extend(ASTool.BaseControlle
 
 		continueBrowsing: function() {
 			this.emptyAnnotations().forEach(function(annotation) {
-				console.log(this);
 				this.deleteAnnotation(annotation);
 			}.bind(this));
 			this.saveAnnotations();

@@ -28,13 +28,14 @@ from scrapy.utils.request import request_fingerprint
 from slybot.spider import IblSpider
 from .html import html4annotation, extract_html
 from .resource import SlydJsonResource
-
+from .httpRequest import httpRequest
 
 def create_bot_resource(spec_manager):
     bot = Bot(spec_manager.settings, spec_manager)
     bot.putChild('fetch', Fetch(bot))
+    bot.putChild('factualTemplate', FactualTemplate(bot))
+    bot.putChild('factualExtracted', FactualExtracted(bot))
     return bot
-
 
 class Bot(Resource):
     spider = BaseSpider('slyd')
@@ -67,6 +68,25 @@ class BotResource(SlydJsonResource):
         Resource.__init__(self)
         self.bot = bot
 
+class FactualTemplate(BotResource):
+
+    def render_POST(self, request):
+        params = self.read_json(request)
+        httpRequest(
+            'http://10.20.10.227:3000/updateTemplate',
+            params
+        )
+        return '\n'
+
+class FactualExtracted(BotResource):
+
+    def render_POST(self, request):
+        params = self.read_json(request)
+        httpRequest(
+            'http://10.20.10.227:3000/updateExtracted',
+            params
+        )
+        return '\n'
 
 class Fetch(BotResource):
     isLeaf = True
@@ -152,7 +172,6 @@ class Fetch(BotResource):
         log.msg(msg, level=log.ERROR)
         finish_request(twisted_request, error=msg)
 
-
 def finish_request(trequest, **resp_obj):
     jdata = json.dumps(resp_obj)
     trequest.setResponseCode(200)
@@ -160,3 +179,4 @@ def finish_request(trequest, **resp_obj):
     trequest.setHeader('Content-Length', len(jdata))
     trequest.write(jdata)
     trequest.finish()
+

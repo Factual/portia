@@ -289,7 +289,6 @@ ASTool.SlydApi = Em.Object.extend({
   	@return {Promise} a promise that fulfills when the server responds.
 	*/
 	saveExtractors: function(extractors) {
-		console.log(extractors);
 		extractors = extractors.map(function(extractor) {
 			return extractor.serialize();
 		});
@@ -326,6 +325,28 @@ ASTool.SlydApi = Em.Object.extend({
 			hash.data['parent_fp'] = parentFp;
 		}
 		hash.url = this.get('botUrl') + 'fetch';
+		return ic.ajax(hash);
+	},
+
+	/**
+  	@public
+	*/
+	factualTemplate: function(factualData) {
+		var hash = {};
+		hash.type = 'POST';
+		hash.data = JSON.stringify(factualData);
+		hash.url = this.get('botUrl') + 'factualTemplate';
+		return ic.ajax(hash);
+	},
+
+	/**
+  	@public
+	*/
+	factualExtracted: function(factualData) {
+		var hash = {};
+		hash.type = 'POST';
+		hash.data = JSON.stringify(factualData);
+		hash.url = this.get('botUrl') + 'factualExtracted';
 		return ic.ajax(hash);
 	},
 
