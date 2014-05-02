@@ -25,6 +25,15 @@ ASTool.SpiderIndexController = Em.ObjectController.extend(ASTool.BaseControllerM
 
 	itemDefinitions: null,
 
+  fetchFirstUrl: function() {
+		var urls = this.content.get('start_urls')
+    if (urls[0]) {
+      setTimeout(function () {
+        this.fetchPage(urls[0], null, true);
+      }.bind(this), 1);
+    }
+  }.property('fetchFirstUrl'),
+
 	hasStartUrl: function() {
 		return !this.get('newStartUrl');
 	}.property('newStartUrl'),
@@ -38,11 +47,13 @@ ASTool.SpiderIndexController = Em.ObjectController.extend(ASTool.BaseControllerM
 	}.property('newFollowPattern'),
 
 	displayEditPatterns: function() {
-		return this.get('links_to_follow') == 'patterns';
+		// return this.get('links_to_follow') == 'patterns';
+    return false;
 	}.property('links_to_follow'),
 
 	displayNofollow: function() {
-		return this.content.get('links_to_follow') != 'none';
+		// return this.content.get('links_to_follow') != 'none';
+    return false;
 	}.property('model.links_to_follow'),
 
 	_showLinks: false,
@@ -236,20 +247,25 @@ ASTool.SpiderIndexController = Em.ObjectController.extend(ASTool.BaseControllerM
 	},
 
 	addTemplate: function() {
-		var page = this.get('pageMap')[this.get('loadedPageFp')];
-		var template = ASTool.Template.create( 
-			{ name: ASTool.shortGuid(),
-			  extractors: {},
-			  annotated_body: page.page,
-			  original_body: page.original,
-			  page_id: page.fp,
-			  url: page.url });
-		this.get('content.templates').pushObject(template);
-		this.saveSpider().then(
-			function() {
-				this.editTemplate(template);
-			}.bind(this)
-		);
+    var templates = this.get('content.templates');
+    if (templates.length === 0) {
+      var page = this.get('pageMap')[this.get('loadedPageFp')];
+      var template = ASTool.Template.create( 
+        { name: ASTool.shortGuid(),
+          extractors: {},
+          annotated_body: page.page,
+          original_body: page.original,
+          page_id: page.fp,
+          url: page.url });
+      this.get('content.templates').pushObject(template);
+      this.saveSpider().then(
+        function() {
+          this.editTemplate(template);
+        }.bind(this)
+      );
+    } else {
+      this.editTemplate(templates[0]);
+    }
 	},
 
 	addStartUrl: function(url) {

@@ -38,8 +38,10 @@ ASTool.NavigationController = Em.Controller.extend({
 	actions: {
 
 		gotoRoute: function(route) {
-			ASTool.ToolboxViewMixin.expandToolbox = true;
-			this.transitionToRoute(route);
+      if (route !== 'projects') {
+        ASTool.ToolboxViewMixin.expandToolbox = true;
+        this.transitionToRoute(route);
+      }
 		},
 	},
 });

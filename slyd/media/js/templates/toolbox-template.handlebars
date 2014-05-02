@@ -1,4 +1,4 @@
-<div style="text-align:center;font-size:1.1em;margin:10px 0px 10px 0px">
+<div style="visibility:hidden;text-align:center;font-size:1.1em;margin:10px 0px 10px 0px">
 	{{#view ASTool.RenameTextField value=name}}
 		<div class="editable-name">Template {{name}}</div>
 	{{/view}}
@@ -22,15 +22,6 @@
 		{{/if}}
 	</div>
 	
-	<h3>Extracted item</h3>
-	<div class="section" style="text-align:center;">
-		<label class="small-label">Extracted item type:</label> {{view ASTool.ItemSelect value=scrapes}}
-		{{view ASTool.InlineHelp message="select_item"}}
-		<div style="margin-top:10px">
-			{{view ASTool.ButtonView action="editItems" argument=this label="Edit items" name="editItems" class="blue-button"}}
-		</div>
-	</div>
-
 	<h3>Extractors</h3>
 	<div class="section" style="text-align:center;">
 		<div class="scrolling-container" style="max-height:250px;margin-top:0px">
@@ -85,8 +76,18 @@
 		</div>
 		
 	</div>
-	<h3>Required fields</h3>
-	<div class="section">
+
+	<h3 style="visibility:hidden;">Extracted item</h3>
+	<div class="section" style="visibility:hidden;text-align:center;">
+		<label class="small-label">Extracted item type:</label> {{view ASTool.ItemSelect value=scrapes}}
+		{{view ASTool.InlineHelp message="select_item"}}
+		<div style="margin-top:10px">
+			{{view ASTool.ButtonView action="editItems" argument=this label="Edit items" name="editItems" class="blue-button"}}
+		</div>
+	</div>
+
+	<h3 style="visibility:hidden;">Required fields</h3>
+	<div class="section" style="visibility:hidden;">
 		<span style="float:right">{{view ASTool.InlineHelp message="template_required"}}</span>
 		<h4 style="width:92%">Check the fields you want to make required for this template:</h4>
 		<div class="scrolling-container">

@@ -29,6 +29,7 @@ ASTool.IndexRoute = Ember.Route.extend({
 
 
 ASTool.ProjectsIndexRoute = Ember.Route.extend({
+  /*
 	model: function() {
 		return this.get('slyd').getProjectNames();
 	},
@@ -45,6 +46,7 @@ ASTool.ProjectsIndexRoute = Ember.Route.extend({
       		controller: controller,
     	});
 	},
+  */
 });
 
 
@@ -103,15 +105,16 @@ ASTool.SpiderIndexRoute = Ember.Route.extend({
 
 	renderTemplate: function() {
 		var controller = this.controllerFor('spider.index');
+    controller.propertyDidChange('fetchFirstUrl');
+    controller.get('fetchFirstUrl');
+    this.render('topbar-browse', {
+      into: 'application',
+        outlet: 'topbar',
+        controller: controller,
+    });
 		this.render('toolbox-spider', {
-      		controller: controller,
-    	});
-
-    	this.render('topbar-browse', {
-    		into: 'application',
-      		outlet: 'topbar',
-      		controller: controller,
-    	});
+      controller: controller,
+    });
 	},
 });
 

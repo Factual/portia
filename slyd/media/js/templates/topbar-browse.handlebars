@@ -4,12 +4,14 @@
 	</div>
 
 	<div style="float:left;margin-top:2px">
+    <!--
 		<span style="float:left">
 			{{view ASTool.ButtonView action="browseBack" icon="ui-icon-arrowthick-1-w" disabled=browseBackDisabled}}
 		</span>
 		<span style="float:left">
 			{{view ASTool.ButtonView action="reload" icon="ui-icon-arrowrefresh-1-e" disabled=reloadDisabled}}
 		</span>
+    -->
 		
 		<span class="url">
 			{{#view ASTool.LabelWithTooltip title=controller.currentUrl}}
@@ -19,7 +21,7 @@
 
 		{{#unless addTemplateDisabled}}
 			<span style="float:left">
-				{{view ASTool.ButtonView action="addTemplate" label="Annotate this page" class="red-button"}}
+				{{view ASTool.ButtonView action="addTemplate" label="Edit" class="red-button"}}
 			</span>
 		{{/unless}}
 

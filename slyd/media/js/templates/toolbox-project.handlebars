@@ -5,16 +5,16 @@
 		{{/view}}
 	</div>
 
-	<h4>Spiders</h4>
+	<h4>Tasks</h4>
 	<div>
 		<div class="scrolling-container" style="max-height:600px">
 			{{#each}}
 				<div style="margin:4px 0px 4px 0px">
 					{{view ASTool.ButtonView action="editSpider" argument=this label=this minWidth="82%" class="light-button"}}
-					{{view ASTool.ButtonView action="deleteSpider" argument=this icon="ui-icon-trash" class="red-button"}}
+					<!--{{view ASTool.ButtonView action="deleteSpider" argument=this icon="ui-icon-trash" class="red-button"}}-->
 				</div>
 			{{else}}
-				<h3>No spiders for this project.</h3>
+				<h3>No tasks for this project.</h3>
 			{{/each}}
 		</div>
 	</div>

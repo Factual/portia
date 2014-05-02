@@ -38,6 +38,7 @@ ASTool.ProjectIndexController = Em.ArrayController.extend(ASTool.BaseControllerM
 	},
 
 	editSpider: function(spiderName) {
+    ASTool.ToolboxViewMixin.expandToolbox = false;
 		this.get('slyd').loadSpider(spiderName).then(function(spider) {
 			this.transitionToRoute('spider', spider);
 		}.bind(this));
