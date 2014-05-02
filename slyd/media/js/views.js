@@ -321,8 +321,8 @@ ASTool.AnnotationWidget = Em.View.extend(Ember.TargetActionSupport, {
 				var name = field.get('name');
 				return { option: name, label: name };
 			});
-			options.pushObject({ option: 'sticky', label: '-just required-' });
-			options.pushObject({ option: 'create_field', label: '-create new-' });
+			// options.pushObject({ option: 'sticky', label: '-just required-' });
+			// options.pushObject({ option: 'create_field', label: '-create new-' });
 			return options;
 		}.property('controller.scrapedItem.fields.@each'),
 
