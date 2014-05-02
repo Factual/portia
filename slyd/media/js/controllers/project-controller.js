@@ -1,6 +1,6 @@
 ASTool.ProjectIndexController = Em.ArrayController.extend(ASTool.BaseControllerMixin, {
 
-	needs: ['application', 'spider_index'],
+	needs: ['application', 'navigation', 'spider_index'],
 
 	documentView: null,
 
@@ -45,7 +45,8 @@ ASTool.ProjectIndexController = Em.ArrayController.extend(ASTool.BaseControllerM
 	},
 
   finishProject: function() {
-    console.log("FINISH PROJECT");
+    var projectId = this.get('controllers.navigation.currentRoute.label')
+		this.get('slyd').factualFinishProject(projectId);
   },
 
 	actions: {

@@ -35,6 +35,7 @@ def create_bot_resource(spec_manager):
     bot.putChild('fetch', Fetch(bot))
     bot.putChild('factualTemplate', FactualTemplate(bot))
     bot.putChild('factualExtracted', FactualExtracted(bot))
+    bot.putChild('factualFinishProject', FactualFinishProject(bot))
     return bot
 
 class Bot(Resource):
@@ -84,6 +85,17 @@ class FactualExtracted(BotResource):
         params = self.read_json(request)
         httpRequest(
             'http://10.20.10.227:3000/updateExtracted',
+            params
+        )
+        return '\n'
+
+class FactualFinishProject(BotResource):
+
+    def render_POST(self, request):
+        log.msg("GOT HERE")
+        params = self.read_json(request)
+        httpRequest(
+            'http://10.20.10.227:3000/finishProject',
             params
         )
         return '\n'

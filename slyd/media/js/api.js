@@ -351,6 +351,17 @@ ASTool.SlydApi = Em.Object.extend({
 	},
 
 	/**
+  	@public
+	*/
+	factualFinishProject: function(projectId) {
+		var hash = {};
+		hash.type = 'POST';
+		hash.data = JSON.stringify({ projectId: projectId });
+		hash.url = this.get('botUrl') + 'factualFinishProject';
+		return ic.ajax(hash);
+	},
+
+	/**
 	@private
 
 	Transforms a list of the form:
