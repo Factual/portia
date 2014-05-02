@@ -83,6 +83,21 @@ ASTool.ButtonView = Em.View.extend(JQ.Widget, {
 	},
 });
 
+// ASTool.FinishedView = ASTool.ButtonView.extend({
+//   visibility: false,
+// 	uiOptions: ['label', 'disabled', 'icons', 'text', 'selected', 'visibility'],
+// 
+// 	label: function(key, label) {
+//     console.log(this);
+//     console.log(this.get('visibility'));
+//     return "blah";
+// 	}.property('_label'),
+// 
+//   // visibility: function () {
+//   //   console.log("VISIBILITY");
+//   //   console.log(this);
+//   // },
+// });
 
 ASTool.TextField = Em.TextField.extend({
 	width:null,
@@ -420,7 +435,6 @@ ASTool.CSSPathWidget = ASTool.ButtonView.extend({
 		this.get('controller').send('highlightElement', null);
 	},
 });
-
 
 ASTool.IgnoreWidget = Em.View.extend({
 	ignore: null,

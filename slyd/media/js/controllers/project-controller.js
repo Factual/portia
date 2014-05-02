@@ -44,6 +44,10 @@ ASTool.ProjectIndexController = Em.ArrayController.extend(ASTool.BaseControllerM
 		}.bind(this));
 	},
 
+  finishProject: function() {
+    console.log("FINISH PROJECT");
+  },
+
 	actions: {
 
 		editSpider: function(spiderName) {
@@ -60,6 +64,10 @@ ASTool.ProjectIndexController = Em.ArrayController.extend(ASTool.BaseControllerM
 				this.removeObject(spiderName);
 			}
 		},
+
+    finishProject: function() {
+      this.finishProject();
+    },
 
 		rename: function(oldName, newName) {
 			this.get('slyd').renameProject(oldName, newName).then(

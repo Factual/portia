@@ -75,6 +75,19 @@ ASTool.SpiderIndexController = Em.ObjectController.extend(ASTool.BaseControllerM
 		return !this.get('loadedPageFp');
 	}.property('loadedPageFp'),
 
+  finishDisabled: function() {
+		if (!this.get('loadedPageFp')) {
+      return true;
+    } else {
+      var templates = this.get('templates');
+      if (templates.length === 0) { 
+        return true; 
+      } else {
+        return false;
+      }
+    }
+  }.property('loadedPageFp'),
+
 	browseBackDisabled: function() {
 		return this.get('browseHistory').length <= 1;
 	}.property('browseHistory.@each'),
@@ -268,6 +281,13 @@ ASTool.SpiderIndexController = Em.ObjectController.extend(ASTool.BaseControllerM
     }
 	},
 
+  finishTemplate: function() {
+    this.get('model').set('finished', true);
+    console.log(this.get('model'));
+    this.transitionToRoute('project');
+    ASTool.ToolboxViewMixin.expandToolbox = true;
+  },
+
 	addStartUrl: function(url) {
 		var parsedUrl = URI.parse(url);
 
@@ -325,6 +345,10 @@ ASTool.SpiderIndexController = Em.ObjectController.extend(ASTool.BaseControllerM
 
 		addTemplate: function() {
 			this.addTemplate();
+		},
+
+		finishTemplate: function() {
+      this.finishTemplate()
 		},
 
 		deleteTemplate: function(template) {

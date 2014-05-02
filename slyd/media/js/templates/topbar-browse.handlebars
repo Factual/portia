@@ -25,6 +25,12 @@
 			</span>
 		{{/unless}}
 
+		{{#unless finishDisabled}}
+			<span style="float:left">
+				{{view ASTool.ButtonView action="finishTemplate" label="Finish" class="blue-button"}}
+			</span>
+		{{/unless}}
+
 		{{#unless showItemsDisabled}}
 			<span style="float:left;margin-left:2px">
 				{{view ASTool.ButtonView action="toggleShowItems" label=itemsButtonLabel class="black-button"}}

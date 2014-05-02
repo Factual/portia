@@ -1,9 +1,11 @@
 <div style="margin:10px 0px 0px 10px">
+  <!--
 	<div style="text-align:center;font-size:1.1em;margin-bottom:5px">
 		{{#view ASTool.RenameTextField value=name}}
 			<span class="editable-name">Project {{name}}</span>
 		{{/view}}
 	</div>
+  -->
 
 	<h4>Tasks</h4>
 	<div>
@@ -11,6 +13,7 @@
 			{{#each}}
 				<div style="margin:4px 0px 4px 0px">
 					{{view ASTool.ButtonView action="editSpider" argument=this label=this minWidth="82%" class="light-button"}}
+					<!--{{view ASTool.ButtonView icon="ui-icon-check" class="blue-button"}}-->
 					<!--{{view ASTool.ButtonView action="deleteSpider" argument=this icon="ui-icon-trash" class="red-button"}}-->
 				</div>
 			{{else}}
@@ -20,3 +23,6 @@
 	</div>
 </div>
 
+<div style="margin-top:10px;text-align:center">
+	{{view ASTool.ButtonView action="finishProject" icon="ui-icon-circle-arrow-n" label="Finish Project" class="blue-button big" disabled=true}}
+</div>
