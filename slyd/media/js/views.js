@@ -44,6 +44,7 @@ ASTool.ButtonView = Em.View.extend(JQ.Widget, {
 	_label: null,
 	title: null,
 	text: false,
+  disabled: false,
 
 	name: function() {
 		return this.get('action') + '_' + this.get('label');

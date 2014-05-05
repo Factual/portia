@@ -283,9 +283,10 @@ ASTool.SpiderIndexController = Em.ObjectController.extend(ASTool.BaseControllerM
 
   finishTemplate: function() {
     this.get('model').set('finished', true);
-    console.log(this.get('model'));
-    this.transitionToRoute('project');
-    ASTool.ToolboxViewMixin.expandToolbox = true;
+		this.saveSpider().then(function() {
+      this.transitionToRoute('project');
+      ASTool.ToolboxViewMixin.expandToolbox = true;
+    }.bind(this))
   },
 
 	addStartUrl: function(url) {

@@ -12,8 +12,10 @@
 		<div class="scrolling-container" style="max-height:600px">
 			{{#each}}
 				<div style="margin:4px 0px 4px 0px">
-					{{view ASTool.ButtonView action="editSpider" argument=this label=this minWidth="82%" class="light-button"}}
-					<!--{{view ASTool.ButtonView icon="ui-icon-check" class="blue-button"}}-->
+					{{view ASTool.ButtonView action="editSpider" argument=this.id label=this.id minWidth="82%" class="light-button"}}
+          {{#if this.finished}}
+					  {{view ASTool.ButtonView icon="ui-icon-check" class="blue-button"}}
+          {{/if}}
 					<!--{{view ASTool.ButtonView action="deleteSpider" argument=this icon="ui-icon-trash" class="red-button"}}-->
 				</div>
 			{{else}}

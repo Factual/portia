@@ -44,6 +44,16 @@ ASTool.ProjectIndexController = Em.ArrayController.extend(ASTool.BaseControllerM
 		}.bind(this));
 	},
 
+  checkFinished: function() {
+    var finished = true;
+    this.get('model').forEach(function (model) {
+      if(!model.finished) {
+        finished = false;
+      }
+    });
+    return finished;
+  }.property('spiderPage'),
+
   finishProject: function() {
     var projectId = this.get('controllers.navigation.currentRoute.label')
 		this.get('slyd').factualFinishProject(projectId);
@@ -81,6 +91,7 @@ ASTool.ProjectIndexController = Em.ArrayController.extend(ASTool.BaseControllerM
 				}.bind(this)
 			);
 		},
+
 	},
 
 	willEnter: function() {

@@ -15,7 +15,7 @@ from slybot.validation.schema import get_schema_validator
 from .resource import SlydJsonResource
 from .annotations import apply_annotations
 from .html import html4annotation
-
+from scrapy import log
 
 def create_crawler_spec_resource(spec_manager):
     return SpecResource(spec_manager)
@@ -175,6 +175,16 @@ class SpecResource(SlydJsonResource):
         elif len(rpath) == 1 and rpath[0] == 'spiders':
             spiders = project_spec.list_spiders()
             request.write(json.dumps(list(spiders)))
+        elif len(rpath) == 2 and rpath[1] == 'all':
+            spiders = project_spec.list_spiders()
+            results = []
+            for spiderId in spiders:
+              spider = project_spec.spider_json(spiderId)
+              spiderHash = {}
+              spiderHash['id'] = spiderId
+              spiderHash['finished'] = spider.get('finished')
+              results.append(spiderHash)
+            request.write(json.dumps(results))
         else:
             if rpath[0] == 'spiders' and len(rpath) == 2:
                 spider = project_spec.spider_json(rpath[1])

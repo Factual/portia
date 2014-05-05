@@ -114,6 +114,16 @@ ASTool.SlydApi = Em.Object.extend({
 
 	/**
   	@public
+	*/
+	getSpiderParams: function() {
+		var hash = {};
+		hash.type = 'GET';
+		hash.url = this.get('projectSpecUrl') + 'spiders/all';
+		return ic.ajax(hash);
+	},
+
+	/**
+  	@public
 
   	Fetches a spider.
 
