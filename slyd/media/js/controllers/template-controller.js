@@ -146,6 +146,8 @@ ASTool.TemplateIndexController = Em.ObjectController.extend(ASTool.BaseControlle
         pageData.path = annotation.get('path');
         factualData.fields[field] = pageData;
       }.bind(this));
+      var loadedPageFp = this.get('controllers.spider_index.loadedPageFp');
+      factualData.originalPage = this.get('controllers.spider_index.pageMap')[loadedPageFp].original;
       factualData.annotatedPage = this.get('documentView').getAnnotatedDocument();
 		  this.get('slyd').factualTemplate(factualData);
     }
