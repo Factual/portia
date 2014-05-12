@@ -120,11 +120,12 @@ ASTool.TemplateIndexController = Em.ObjectController.extend(ASTool.BaseControlle
     factualData.spiderId = routes[2].label;
     if (factualData.projectId && factualData.spiderId) {
       this.get('annotations').forEach(function(annotation) {
-        var pageData = {}
-        var field = null
-        var annotations = annotation.get('annotations')
+        var pageData = {};
+        var field = null;
+        var annotations = annotation.get('annotations');
         for (var key in annotations) {
           pageData.dataSource = key;
+			    pageData.value = annotation.get('attributes').findBy('name', key).get('value');	
           field = annotations[key];
         }
         var extractors = this.getAppliedExtractors(field);
