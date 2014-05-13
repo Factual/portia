@@ -289,6 +289,15 @@ ASTool.SpiderIndexController = Em.ObjectController.extend(ASTool.BaseControllerM
     }.bind(this))
   },
 
+  getTemplateValues: function () {
+    var template = this.get('content.templates')[0];
+    if (template) {
+      return template.get('values');
+    } else {
+      return [];
+    }
+	}.property('loadedPageFp'),
+
 	addStartUrl: function(url) {
 		var parsedUrl = URI.parse(url);
 

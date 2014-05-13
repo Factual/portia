@@ -119,15 +119,22 @@ ASTool.TemplateIndexController = Em.ObjectController.extend(ASTool.BaseControlle
     factualData.projectId = routes[1].label;
     factualData.spiderId = routes[2].label;
     if (factualData.projectId && factualData.spiderId) {
+      values = [];
       this.get('annotations').forEach(function(annotation) {
         var pageData = {};
         var field = null;
+        var value = null;
         var annotations = annotation.get('annotations');
         for (var key in annotations) {
           pageData.dataSource = key;
-			    pageData.value = annotation.get('attributes').findBy('name', key).get('value');	
+			    value = annotation.get('attributes').findBy('name', key).get('value');	
+			    pageData.value = value;
           field = annotations[key];
         }
+        values.push({
+          field: field,
+          value: value
+        })
         var extractors = this.getAppliedExtractors(field);
         if (extractors.length > 0) {
           var extractorHash = {}
@@ -147,6 +154,7 @@ ASTool.TemplateIndexController = Em.ObjectController.extend(ASTool.BaseControlle
         pageData.path = annotation.get('path');
         factualData.fields[field] = pageData;
       }.bind(this));
+      this.get('model').set('values', values);
       var loadedPageFp = this.get('controllers.spider_index.loadedPageFp');
       factualData.originalPage = this.get('controllers.spider_index.pageMap')[loadedPageFp].original;
       factualData.annotatedPage = this.get('documentView').getAnnotatedDocument();

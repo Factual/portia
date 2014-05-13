@@ -99,7 +99,7 @@ ASTool.SimpleModel = Em.Object.extend(Em.Copyable, {
 ASTool.Template = ASTool.SimpleModel.extend({
 	serializedProperties: ['page_id', 'default', 'scrapes',
 		'page_type', 'url', 'annotated_body', 'original_body',
-		'extractors', 'name', 'finished'],
+		'extractors', 'name', 'finished', 'values'],
 	page_id: '',
 	scrapes: 'default',
 	page_type: 'item',
@@ -107,6 +107,7 @@ ASTool.Template = ASTool.SimpleModel.extend({
 	annotated_body: '',
 	original_body: '',
 	extractors: null,
+  values: [],
 }),
 
 ASTool.Spider = ASTool.SimpleModel.extend({
