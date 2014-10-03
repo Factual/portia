@@ -74,7 +74,7 @@ class FactualTemplate(BotResource):
     def render_POST(self, request):
         params = self.read_json(request)
         httpRequest(
-            'http://10.20.10.227:3000/updateTemplate',
+            'http://sift-dash.factual.com/updateTemplate',
             params
         )
         return '\n'
@@ -84,7 +84,7 @@ class FactualExtracted(BotResource):
     def render_POST(self, request):
         params = self.read_json(request)
         httpRequest(
-            'http://10.20.10.227:3000/updateExtracted',
+            'http://sift-dash.factual.com/updateExtracted',
             params
         )
         return '\n'
@@ -95,7 +95,7 @@ class FactualFinishProject(BotResource):
         log.msg("GOT HERE")
         params = self.read_json(request)
         httpRequest(
-            'http://10.20.10.227:3000/finishProject',
+            'http://sift-dash.factual.com/finishProject',
             params
         )
         return '\n'
