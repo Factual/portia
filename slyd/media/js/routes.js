@@ -59,26 +59,26 @@ ASTool.ProjectRoute = Ember.Route.extend({
 
 
 ASTool.ProjectIndexRoute = Ember.Route.extend({
-	model: function() {
-		return this.get('slyd').getSpiderParams();
-	},
+	// model: function() {
+	// 	return this.get('slyd').getSpiderParams();
+	// },
 
-	renderTemplate: function() {
-		var controller = this.controllerFor('project.index');
-    this.render('toolbox-project', {
-          controller: controller,
-      });
-      this.render('topbar-project', {
-        into: 'application',
-          outlet: 'topbar',
-          controller: controller,
-      });
-	},
+	// renderTemplate: function() {
+	// 	var controller = this.controllerFor('project.index');
+    // this.render('toolbox-project', {
+    //       controller: controller,
+    //   });
+    //   this.render('topbar-project', {
+    //     into: 'application',
+    //       outlet: 'topbar',
+    //       controller: controller,
+    //   });
+	// },
 
-	serialize: function(model, params) {
-		var controller = this.controllerFor('project');
-		return { project_id: controller.get('name') };
-	},
+	// serialize: function(model, params) {
+	// 	var controller = this.controllerFor('project');
+	// 	return { project_id: controller.get('name') };
+	// },
 });
 
 
